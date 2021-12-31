@@ -4,7 +4,6 @@ namespace Prophetarum\BlingIntegrationPhp\Models;
 
 Class Produto 
 {
-
     public $codigo; // 	Código do produto
     public $codigoItem; // 	Código de item de serviço (06, 21 e 22)
     public $descricao; // 	Descrição do produto
@@ -32,10 +31,6 @@ Class Produto
     public $descricaoFornecedor; // Descrição do fornecedor
     public $idFabricante; //    Id do fornecedor (pode ser obtido no GET de contatos)
     public $codigoFabricante; //    Código do produto no fornecedor
-    public $deposito = [ //    Depósito ao qual será lançado estoque
-        'id' => '', // 	Código identificador do depósito
-        'estoque' => '', // 	Estoque atual do produto no depósito
-    ];
     public $gtin; // 	GTIN / EAN do produto
     public $gtinEmbalagem; // 	GTIN / EAN tributário da menor unidade comercializada
     public $largura; // 	Largura do produto com embalagem
@@ -50,32 +45,37 @@ Class Produto
     public $crossdocking; // 	Quantidade de dias para o processo de distribuição em que a mercadoria recebida é redirecionada ao consumidor final sem uma armazenagem prévia.
     public $garantia; // 	Garantia do produto, deve ser informada em meses.
     public $spedTipoItem; //    Código do tipo do item no SPED
-    public $variacoes = [ //   Grupo de variações
-        'variacao' => '', //    Grupo de variação
-        'nome' => '', //    nome da variação
-        'codigo' => '', //  código da variação
-        'vlr_unit' => '', //    valor unitário da variação
-        'clonarDadosPai' => '', //  Utilizar informações do produto pai (S para Sim ou N para Não)
-        'estoque' => '', // estoque da variação
-        'deposito' => '', //    Depósito ao qual será lançado estoque da variação
-        'un' => '' //  Unidade da Variação (somente se o campo clonarDadosPai for N)
-    ]; 
-    public $imagens = [ // 	Lista de imagens do produto
-        'url' => '' // URL da imagem
-    ];
-    public $camposCustomizados = [ // Alias do campo customizado
-        'alias' => ''
-    ];
     public $idCategoria; // ID da categoria do produto
-    public $estrutura = [ // 	Composição do produto 
-        'tipoEstoque' => '', // Tipo do estoque F - Físico V - Virtual
-        'lancarEstoque' => '', // 	Lançar estoque em  	P - Produto C - Componente PC - Produto e Componente
-        'componente' => [
-            'nome' => '', // 	Nome do produto 
-            'codigo' => '', //  Código do produto
-            'quantidade' => '',//  Quantidade do produto na composição
-        ]
-    ]; 
+
+    // public $deposito = [ //    Depósito ao qual será lançado estoque
+    //     'id' => '', // 	Código identificador do depósito
+    //     'estoque' => '', // 	Estoque atual do produto no depósito
+    // ];
+    // public $variacoes = [ //   Grupo de variações
+    //     'variacao' => '', //    Grupo de variação
+    //     'nome' => '', //    nome da variação
+    //     'codigo' => '', //  código da variação
+    //     'vlr_unit' => '', //    valor unitário da variação
+    //     'clonarDadosPai' => '', //  Utilizar informações do produto pai (S para Sim ou N para Não)
+    //     'estoque' => '', // estoque da variação
+    //     'deposito' => '', //    Depósito ao qual será lançado estoque da variação
+    //     'un' => '' //  Unidade da Variação (somente se o campo clonarDadosPai for N)
+    // ]; 
+    // public $imagens = [ // 	Lista de imagens do produto
+    //     'url' => '' // URL da imagem
+    // ];
+    // public $camposCustomizados = [ // Alias do campo customizado
+    //     'alias' => ''
+    // ];
+    // public $estrutura = [ // 	Composição do produto 
+    //     'tipoEstoque' => '', // Tipo do estoque F - Físico V - Virtual
+    //     'lancarEstoque' => '', // 	Lançar estoque em  	P - Produto C - Componente PC - Produto e Componente
+    //     'componente' => [
+    //         'nome' => '', // 	Nome do produto 
+    //         'codigo' => '', //  Código do produto
+    //         'quantidade' => '',//  Quantidade do produto na composição
+    //     ]
+    // ]; 
 
     public function __construct( array $parameters)
     {
