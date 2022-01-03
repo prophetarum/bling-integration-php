@@ -33,3 +33,84 @@ print_r( $response );
 
 
 ```
+
+    Para exportar um pedido siga o exemplo: 
+
+```php
+
+<?php 
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Prophetarum\BlingIntegrationPhp\Models\Pedido;
+use Prophetarum\BlingIntegrationPhp\Services\Exportador;
+
+$pedidoArray = [
+    'cliente' => [
+        'id' => '1234567890',
+        'nome' => 'CONSUMIDOR FINAL',
+    ],
+    'itens' => [
+        'item' => [
+            'codigo' => '004485', 
+            'descricao' => 'PRODUTO DE BOA QUALIDADE', 
+            'un' => 'UN', 
+            'qtde' => '1', 
+            'vlr_unit' => '18.99', 
+            'vlr_desconto' => '0.00', 
+        ]
+    ]
+];
+
+$pedido = new Pedido( $pedidoArray );
+
+$apiKey = "1234567890"; // API fornecida pelo Bling
+$exportador = new Exportador( $apiKey );
+$response = $exportador->postPedido( $pedido );
+print_r( $response );
+
+
+```
+
+    Para exportar uma Nfc-e: 
+
+```php
+
+<?php 
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Prophetarum\BlingIntegrationPhp\Models\Nfce;
+use Prophetarum\BlingIntegrationPhp\Services\Exportador;
+
+$nfceArray = [
+    'cliente' => [
+        'id' => '1234567890',
+        'nome' => 'CONSUMIDOR FINAL',
+    ],
+    'itens' => [
+        'item' => [
+            'codigo' => '004485', 
+            'descricao' => 'PRODUTO DE BOA QUALIDADE', 
+            'un' => 'UN', 
+            'qtde' => '1', 
+            'vlr_unit' => '18.99', 
+            'vlr_desconto' => '0.00', 
+        ]
+    ],
+    'parcelas' => [
+        'data' => '03/02/2022'
+    ]
+
+
+];
+
+$nfce = new Nfce( $nfceArray );
+
+$apiKey = "1234567890"; // API fornecida pelo Bling
+$exportador = new Exportador( $apiKey );
+$response = $exportador->postNfce( $nfce );
+print_r( $response );
+
+
+```

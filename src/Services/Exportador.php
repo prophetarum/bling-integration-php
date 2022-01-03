@@ -2,11 +2,18 @@
 
 namespace Prophetarum\BlingIntegrationPhp\Services;
 
-use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato, Pedido};
+use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato, Pedido, Nfce};
 use Spatie\ArrayToXml\ArrayToXml;
 
 class Exportador 
 {
+
+    public function postNfce( Nfce $nfce )
+    {
+        $url = $this->baseUrl . 'nfce/json/';
+        $xml = ArrayToXml::convert( (array)  $nfce , 'nfce');
+        return $this->post($url, $xml);
+    }
 
     public function postPedido( Pedido $pedido )
     {
