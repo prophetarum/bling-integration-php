@@ -12,42 +12,29 @@ class Exportador
     {
         $url = $this->baseUrl . 'pedido/json/';
         $xml = ArrayToXml::convert( (array)  $pedido , 'pedido');
-        $posts = array (
-            "apikey" => $this->apiKey,
-            "xml" => rawurlencode($xml)
-        );
-        $retorno = $this->executeInsert($url, $posts);
-        return $retorno;
+        return $this->post($url, $xml);
     }
 
     public function postContato( Contato $contato )
     {
         $url = $this->baseUrl . 'contato/json/';
         $xml = ArrayToXml::convert( (array)  $contato , 'contato');
-        $posts = array (
-            "apikey" => $this->apiKey,
-            "xml" => rawurlencode($xml)
-        );
-        $retorno = $this->executeInsert($url, $posts);
-        return $retorno;
+        return $this->post($url, $xml);
     }
-
 
     public function postProduto( Produto $produto )
     {
         $url = $this->baseUrl . 'produto/json/';
         $xml = ArrayToXml::convert( (array)  $produto , 'produto');
-
-        $posts = array (
-            "apikey" => $this->apiKey,
-            "xml" => rawurlencode($xml)
-        );
-        $retorno = $this->executeInsert($url, $posts);
-
-        return $retorno;
+        return $this->post($url, $xml);
     }
 
-    private function executeInsert($url, $data){
+    private function post($url, $xml){
+        $data = [
+            "apikey" => $this->apiKey,
+            "xml" => rawurlencode($xml)
+        ];
+
         $curl_handle = curl_init();
         curl_setopt($curl_handle, CURLOPT_URL, $url);
         curl_setopt($curl_handle, CURLOPT_POST, count($data));
@@ -57,9 +44,6 @@ class Exportador
         curl_close($curl_handle);
         return $response;
     }
-
-
-
 
     public function __construct($apiKey)
     {
