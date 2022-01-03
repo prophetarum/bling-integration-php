@@ -2,11 +2,23 @@
 
 namespace Prophetarum\BlingIntegrationPhp\Services;
 
-use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato};
+use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato, Pedido};
 use Spatie\ArrayToXml\ArrayToXml;
 
 class Exportador 
 {
+
+    public function postPedido( Pedido $pedido )
+    {
+        $url = $this->baseUrl . 'pedido/json/';
+        $xml = ArrayToXml::convert( (array)  $pedido , 'pedido');
+        $posts = array (
+            "apikey" => $this->apiKey,
+            "xml" => rawurlencode($xml)
+        );
+        $retorno = $this->executeInsert($url, $posts);
+        return $retorno;
+    }
 
     public function postContato( Contato $contato )
     {
@@ -17,7 +29,7 @@ class Exportador
             "xml" => rawurlencode($xml)
         );
         $retorno = $this->executeInsert($url, $posts);
-        echo $retorno;
+        return $retorno;
     }
 
 
