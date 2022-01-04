@@ -7,40 +7,51 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class Exportador 
 {
+    public function geraNfce( $numeroNfce, $serie, $sendEmail)
+    {
+        $url = $this->baseUrl . 'nfce/json/';
+        $data = [
+            "number"    => $numeroNfce,
+            "serie"     => $serie,
+            "sendEmail" => $sendEmail
+        ];
+        return $this->post($url, $data);
+    }
 
     public function postNfce( Nfce $nfce )
     {
         $url = $this->baseUrl . 'nfce/json/';
         $xml = ArrayToXml::convert( (array)  $nfce , 'nfce');
-        return $this->post($url, $xml);
+        $data = [ "xml" => rawurlencode($xml) ];
+        return $this->post($url, $data);
     }
 
     public function postPedido( Pedido $pedido )
     {
         $url = $this->baseUrl . 'pedido/json/';
         $xml = ArrayToXml::convert( (array)  $pedido , 'pedido');
-        return $this->post($url, $xml);
+        $data = [ "xml" => rawurlencode($xml) ];
+        return $this->post($url, $data);
     }
 
     public function postContato( Contato $contato )
     {
         $url = $this->baseUrl . 'contato/json/';
         $xml = ArrayToXml::convert( (array)  $contato , 'contato');
-        return $this->post($url, $xml);
+        $data = [ "xml" => rawurlencode($xml) ];
+        return $this->post($url, $data);
     }
 
     public function postProduto( Produto $produto )
     {
         $url = $this->baseUrl . 'produto/json/';
         $xml = ArrayToXml::convert( (array)  $produto , 'produto');
-        return $this->post($url, $xml);
+        $data = [ "xml" => rawurlencode($xml) ];
+        return $this->post($url, $data);
     }
 
-    private function post($url, $xml){
-        $data = [
-            "apikey" => $this->apiKey,
-            "xml" => rawurlencode($xml)
-        ];
+    private function post($url, $data){
+        $data['apikey'] = $this->apiKey;
 
         $curl_handle = curl_init();
         curl_setopt($curl_handle, CURLOPT_URL, $url);
