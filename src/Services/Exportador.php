@@ -2,11 +2,19 @@
 
 namespace Prophetarum\BlingIntegrationPhp\Services;
 
-use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato, Pedido, Nfce};
+use Prophetarum\BlingIntegrationPhp\Models\{Produto, Contato, Pedido, Nfce, Nfe};
 use Spatie\ArrayToXml\ArrayToXml;
 
 class Exportador 
 {
+    public function postNfe( Nfe $nfe )
+    {
+        $url = $this->baseUrl . 'notafiscal/json/';
+        $xml = ArrayToXml::convert( (array)  $nfe , 'nfe');
+        $data = [ "xml" => rawurlencode($xml) ];
+        return $this->post($url, $data);
+    }
+
     public function geraNfce( $numeroNfce, $serie, $sendEmail)
     {
         $url = $this->baseUrl . 'nfce/json/';
