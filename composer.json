@@ -2,7 +2,7 @@
     "name" : "prophetarum/bling-integration-php",
     "description" : "Integração para troca de informações via API do Bling",
     "type" : "library",
-    "licence" : "GPL-3.0-or-later",
+    "license" : "GPL-3.0-or-later",
     "authors" : [
         {
             "name" : "prophetarum",
