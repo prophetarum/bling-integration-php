@@ -52,7 +52,12 @@ class Exportador
 
     public function postProduto( Produto $produto )
     {
-        $url = $this->baseUrl . 'produto/json/';
+        if( $produto->codigo ) {
+            $url = $this->baseUrl . 'produto/' . $produto->codigo . '/' . 'json/';
+        } else {
+            $url = $this->baseUrl . 'produto/json/';
+        }
+
         $xml = ArrayToXml::convert( (array)  $produto , 'produto');
         $data = [ "xml" => rawurlencode($xml) ];
         return $this->post($url, $data);
