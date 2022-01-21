@@ -45,7 +45,8 @@ Class Produto
     public $crossdocking; // 	Quantidade de dias para o processo de distribuição em que a mercadoria recebida é redirecionada ao consumidor final sem uma armazenagem prévia.
     public $garantia; // 	Garantia do produto, deve ser informada em meses.
     public $spedTipoItem; //    Código do tipo do item no SPED
-    public $idCategoria; // ID da categoria do produto
+    
+    // public $idCategoria; // ID da categoria do produto
 
     // public $deposito = [ //    Depósito ao qual será lançado estoque
     //     'id' => '', // 	Código identificador do depósito
@@ -77,7 +78,7 @@ Class Produto
     //     ]
     // ]; 
 
-    public function __construct( array $parameters)
+    public function __construct( array $parameters )
     {
         foreach($parameters as $key => $value) {
             $this->$key = $value;

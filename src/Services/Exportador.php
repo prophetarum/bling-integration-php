@@ -44,10 +44,15 @@ class Exportador
 
     public function postContato( Contato $contato )
     {
-        $url = $this->baseUrl . 'contato/json/';
         $xml = ArrayToXml::convert( (array)  $contato , 'contato');
         $data = [ "xml" => rawurlencode($xml) ];
-        return $this->post($url, $data);
+        if( !$contato->id ) {
+            $url = $this->baseUrl . 'contato/json/';
+            return $this->post($url, $data);
+        } else {
+            $url = $this->baseUrl . "contato/$contato->id/json/";
+            return $this->post($url, $data, "PUT");
+        }
     }
 
     public function postProduto( Produto $produto )
@@ -63,7 +68,7 @@ class Exportador
         return $this->post($url, $data);
     }
 
-    private function post($url, $data){
+    private function post($url, $data, $method = null){
         $data['apikey'] = $this->apiKey;
 
         $curl_handle = curl_init();
@@ -71,6 +76,10 @@ class Exportador
         curl_setopt($curl_handle, CURLOPT_POST, count($data));
         curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+        
+        if ( $method == "PUT" ) {
+            curl_setopt($curl_handle, CURLOPT_CUSTOMREQUEST, "PUT");
+        }
         $response = curl_exec($curl_handle);
         curl_close($curl_handle);
         return $response;
