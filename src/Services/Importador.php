@@ -7,7 +7,7 @@ use Prophetarum\BlingIntegrationPhp\Models\Produto;
 class Importador 
 {
 
-    public function getContatos( $apikey )
+    public function getContatos()
     {
         function executeGetContacts($url, $apikey){
            $curl_handle = curl_init();
@@ -18,9 +18,10 @@ class Importador
            return $response;
         }
 
+
         $outputType = "json";
         $url = 'https://bling.com.br/Api/v2/contatos/' . $outputType;
-        $retorno = executeGetContacts($url, $apikey);
+        $retorno = executeGetContacts($url, $this->apiKey);
         return $retorno;
     }
 
