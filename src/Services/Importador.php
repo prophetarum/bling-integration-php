@@ -7,6 +7,23 @@ use Prophetarum\BlingIntegrationPhp\Models\Produto;
 class Importador 
 {
 
+    public function getContatos( $apikey )
+    {
+        function executeGetContacts($url, $apikey){
+           $curl_handle = curl_init();
+           curl_setopt($curl_handle, CURLOPT_URL, $url . '&apikey=' . $apikey);
+           curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+           $response = curl_exec($curl_handle);
+           curl_close($curl_handle);
+           return $response;
+        }
+
+        $outputType = "json";
+        $url = 'https://bling.com.br/Api/v2/contatos/' . $outputType;
+        $retorno = executeGetContacts($url, $apikey);
+        return $retorno;
+    }
+
     public function getProdutos()
     {
         function executeGetProducts($url, $apikey){
@@ -43,11 +60,11 @@ class Importador
 
     }
 
-    public function getNfe()
+    public function getNfe( $numero, $serie = 1 )
     {
         $apikey = $this->apiKey;
-        $documentNumber = 3544216;
-        $documentSerie = 1;
+        $documentNumber = $numero;
+        $documentSerie = $serie;
         $outputType = "json";
         $url = 'https://bling.com.br/Api/v2/notafiscal/' . $documentNumber . '/'. $documentSerie . '/' . $outputType;
         $retorno = $this->executeGetFiscalDocument($url, $apikey);
