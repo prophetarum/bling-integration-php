@@ -7,6 +7,20 @@ use Prophetarum\BlingIntegrationPhp\Models\Produto;
 class Importador 
 {
 
+    public function getNfce( $numero, $serie = 1 )
+    {
+        $apikey = $this->apiKey;
+        $documentNumber = $numero;
+        $documentSerie = $serie;
+        $outputType = "json";
+        $url = 'https://bling.com.br/Api/v2/nfce/' . $documentNumber . '/'. $documentSerie . '/' . $outputType;
+        $retorno = $this->executeGetFiscalDocument($url, $apikey);
+        echo $retorno;
+
+    }
+
+
+
     public function getContatos()
     {
         function executeGetContacts($url, $apikey){
