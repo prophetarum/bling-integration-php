@@ -7,6 +7,19 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class Exportador 
 {
+
+    public function geraNfe( $numeroNfce, $serie, $sendEmail )
+    {
+        $url = $this->baseUrl . 'notafiscal/json/';
+        $data = [
+            "number"    => $numeroNfce,
+            "serie"     => $serie,
+            "sendEmail" => $sendEmail
+        ];
+        
+        return $this->post($url, $data);
+    }
+    
     public function postNfe( Nfe $nfe )
     {
         $url = $this->baseUrl . 'notafiscal/json/';
