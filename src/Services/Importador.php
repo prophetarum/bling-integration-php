@@ -80,7 +80,7 @@ class Importador
         $outputType = "json";
         $url = 'https://bling.com.br/Api/v2/notafiscal/' . $documentNumber . '/'. $documentSerie . '/' . $outputType;
         $retorno = $this->executeGetFiscalDocument($url, $apikey);
-        echo $retorno;
+        return $retorno;
 
     }
 
