@@ -38,20 +38,26 @@ class Importador
 
     public function getProdutos()
     {
-        function executeGetProducts($url, $apikey){
-            $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, $url . '&apikey=' . $apikey);
-            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
-            $response = curl_exec($curl_handle);
-            curl_close($curl_handle);
-            return $response;
-        }
+        // function executeGetProducts($url, $apikey){
+        //     $curl_handle = curl_init();
+        //     curl_setopt($curl_handle, CURLOPT_URL, $url . '&apikey=' . $apikey);
+        //     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+        //     $response = curl_exec($curl_handle);
+        //     curl_close($curl_handle);
+        //     return $response;
+        // }
 
         $outputType = "json";
         $apikey = $this->apiKey;
         $url = 'https://bling.com.br/Api/v2/produtos/' . $outputType;
-        $retorno = executeGetProducts($url, $apikey);
-        return $retorno;
+
+        $curl_handle = curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, $url . '&apikey=' . $apikey);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+        $response = curl_exec($curl_handle);
+        curl_close($curl_handle);
+        return $response;
+
     }
 
     public function getProduto( $code )
@@ -93,8 +99,8 @@ class Importador
         return $response;
     }
 
-    public function get()
-    {
+    // public function get()
+    // {
         // function executeGetProduct($url, $apikey){
         //     $curl_handle = curl_init();
         //     curl_setopt($curl_handle, CURLOPT_URL, $url . '&apikey=' . $apikey);
@@ -110,7 +116,7 @@ class Importador
         // $url = 'https://bling.com.br/Api/v2/produto/' . $code . '/' . $outputType;
         // $retorno = executeGetProduct($url, $apikey);
         // echo $retorno;
-    }
+    // }
 
     public function __construct($apiKey)
     {
